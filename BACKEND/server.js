@@ -8,6 +8,8 @@ import authRoute from './routes/auth.js';
 import hotelRoute from './routes/hotels.js';
 import userRoute from './routes/users.js';
 import roomRoute from './routes/rooms.js';
+import flightRoute from './routes/flights.js';
+import tourPackageRoute from './routes/tourPackage.js';
 
 // Load environment variables
 dotenv.config();
@@ -41,6 +43,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/hotels", hotelRoute);
 app.use("/api/users", userRoute);
 app.use("/api/rooms", roomRoute);
+app.use("/api/flights", flightRoute);
+app.use("/api/tourPackage", tourPackageRoute);
 
 
 app.use((err, req, res, next) => {
