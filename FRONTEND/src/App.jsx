@@ -1,9 +1,11 @@
 import React from 'react'
-import Card from './components/HomePage/Icons.jsx'
+import HomePage from './components/HomePage/HomePage'
 
 const App = () => {
   return (
-    <Card />
+    <div>
+      <HomePage />
+    </div>
   )
 }
 
