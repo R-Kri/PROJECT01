@@ -46,3 +46,29 @@ export const getAllHotels = async (req, res,next) => {
         next(err)
     }
 };
+
+export const countByCity = async (req, res, next) => {
+    try {
+        // Validate if 'cities' query parameter exists
+        if (!req.query.cities) {
+            return res.status(400).json({ 
+                message: "The 'cities' query parameter is required." 
+            });
+        }
+
+        // Split the 'cities' query parameter into an array
+        const cities = req.query.cities.split(",");
+
+        // Use Promise.all to handle multiple database queries simultaneously
+        const list = await Promise.all(
+            cities.map((city) => Hotel.countDocuments({ city }))
+        );
+
+        // Return the result as a JSON response
+        res.status(200).json(list);
+
+    } catch (err) {
+        // Pass any errors to the error-handling middleware
+        next(err);
+    }
+};
