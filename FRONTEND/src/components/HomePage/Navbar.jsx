@@ -1,25 +1,47 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import AirplanemodeActiveIcon from "@mui/icons-material/AirplanemodeActive";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import LuggageIcon from "@mui/icons-material/Luggage";
 
 const Navbar = () => (
-  <div>
-      <div className="bg-white w-[50%] relative z-20 max-w-md mx-auto mt-4 rounded-lg border-gray-600 shadow-2xl flex justify-evenly p-4">
-        <span className="text-sm flex flex-col items-center">
-          <AirplanemodeActiveIcon style={{ fontSize: "24px", color: "#4A90E2" }} className="mb-1" />
-          Flights
+  <>
+    <nav className="bg-white w-[50%] relative z-20 max-w-md m-auto mt-4 rounded-lg border-gray-600 shadow-2xl flex justify-between px-5 py-3">
+      <Link to="/">
+        <span>
+          <span className="text-sm flex flex-col items-center mb-2">
+            <AirplanemodeActiveIcon
+              style={{ fontSize: "24px", color: "#4A90E2" }}
+              className="mb-1"
+            />
+          </span>
+          <span className="text-gray-800">Flights</span>
         </span>
-        <span className="text-sm flex flex-col items-center">
-          <ApartmentIcon style={{ fontSize: "24px", color: "#4A90E2" }} className="mb-1" />
-          Hotels
+      </Link>
+      <Link to="/hotel">
+        <span>
+          <span className="text-sm flex flex-col items-center mb-2">
+            <ApartmentIcon
+              style={{ fontSize: "24px", color: "#4A90E2" }}
+              className="mb-1"
+            />
+          </span>
+          <span className="text-gray-800">Hotels</span>
         </span>
-        <span className="text-sm flex flex-col items-center">
-          <LuggageIcon style={{ fontSize: "24px", color: "#4A90E2" }} className="mb-1" />
-          Tour Packages
+      </Link>
+      <Link to="/tour">
+        <span>
+          <span className="text-sm flex flex-col items-center mb-2">
+            <LuggageIcon
+              style={{ fontSize: "24px", color: "#4A90E2" }}
+              className="mb-1"
+            />
+          </span>
+          <span className="text-gray-800">Tour Packages</span>
         </span>
-      </div>
-  </div>
+      </Link>
+    </nav>
+  </>
 );
 
 export default Navbar;
