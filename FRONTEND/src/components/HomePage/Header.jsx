@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -17,17 +18,13 @@ const Header = () => {
         </a>
 
         {/* Navigation Menu */}
+        <Link to="/login">
         <ul className="flex items-center gap-3 ml-auto">
-          <li className="bg-blue-300 px-6 py-2 rounded-lg text-center font-semibold">
-            <p>Login</p>
-          </li>
-          <li className="bg-blue-300 px-6 py-2 rounded-lg text-center font-semibold">
-            <p>Register</p>
-          </li>
-          <li className="bg-blue-300 px-6 py-2 rounded-lg text-center font-semibold">
-            <p>India</p>
+          <li className="bg-gradient-to-r from-blue-300 to-blue-800 px-6 py-2 rounded-lg text-center font-semibold">
+            <p>Login or Create Account</p>
           </li>
         </ul>
+        </Link>
       </header>
       </div>
     </div>
