@@ -5,7 +5,7 @@ import RecentSearch from './RecentSearch'
 
 const TourContainer = () => {
   return (
-    <div className='w-[100%] -mb-10 -mt-11 bg-white flex align-center relative justify-center flex-col rounded-xl'>
+    <div className='w-[100%] -mb-10 -mt-8 bg-white flex align-center relative justify-center flex-col rounded-xl'>
         <TourOffer />
         <TourSearch/>
         <RecentSearch />

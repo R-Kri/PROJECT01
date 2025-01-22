@@ -1,191 +1,143 @@
-"use client"
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { User, Mail, Lock } from "lucide-react";
 
-import { useState } from "react"
-import { User, Mail, Lock } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-export function LoginRegisterDialog() {
+const LoginRegisterDialog = ({ isOpen, onClose }) => {
+  const [activeTab, setActiveTab] = useState("signup");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
-  })
-  const [error, setError] = useState("")
-  const [successMessage, setSuccessMessage] = useState("")
+  });
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
-  const validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return regex.test(email)
-  }
-
-  const validatePassword = (password) => {
-    return password.length >= 8
-  }
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePassword = (password) => password.length >= 8;
 
   const handleSubmit = (action) => {
-    const { email, password, name } = formData
+    const { email, password, name } = formData;
 
     if (!validateEmail(email)) {
-      setError("Please enter a valid email address.")
-      return
+      setError("Please enter a valid email address.");
+      return;
     }
     if (!validatePassword(password)) {
-      setError("Password must be at least 8 characters long.")
-      return
+      setError("Password must be at least 8 characters long.");
+      return;
     }
-    if (action === "Sign Up" && !name) {
-      setError("Please enter your name.")
-      return
+    if (action === "Sign Up" && !name && activeTab === "signup") {
+      setError("Please enter your name.");
+      return;
     }
 
-    setError("")
-    setSuccessMessage(`${action} successful!`)
-    setTimeout(() => setSuccessMessage(""), 3000)
-  }
+    setError("");
+    setSuccessMessage(`${action} successful!`);
+    setTimeout(() => setSuccessMessage(""), 3000);
+  };
+
+  if (!isOpen) return null;
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Login / Register</Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <Tabs defaultValue="signup" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
-            <TabsTrigger value="login">Login</TabsTrigger>
-          </TabsList>
-          <TabsContent value="signup">
-            <DialogHeader>
-              <DialogTitle>Create an account</DialogTitle>
-              <DialogDescription>Enter your details to create a new account.</DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <div className="col-span-3 flex items-center">
-                  <User className="mr-2 h-4 w-4 opacity-50" />
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="col-span-3"
-                  />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        <div className="flex justify-between items-center">
+          <h2 className="text-xl font-bold">Login / Register</h2>
+          <button onClick={onClose} className="text-red-500 font-bold">X</button>
+        </div>
+        <div className="tabs mt-4">
+          <div className="flex border-b mb-4">
+            <button 
+              onClick={() => setActiveTab("signup")}
+              className={`px-4 py-2 font-bold border-b-2 ${
+                activeTab === "signup" ? "border-black" : "border-transparent"
+              }`}
+            >
+              Sign Up
+            </button>
+            <button 
+              onClick={() => setActiveTab("login")}
+              className={`px-4 py-2 font-bold border-b-2 ${
+                activeTab === "login" ? "border-black" : "border-transparent"
+              }`}
+            >
+              Login
+            </button>
+          </div>
+          <div>
+            <form>
+              {activeTab === "signup" && (
+                <div className="mb-4">
+                  <label className="block mb-2 font-medium">Name</label>
+                  <div className="flex items-center border rounded">
+                    <User className="ml-2 text-gray-500" />
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="flex-1 p-2 focus:outline-none"
+                      placeholder="Enter your name"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="email" className="text-right">
-                  Email
-                </Label>
-                <div className="col-span-3 flex items-center">
-                  <Mail className="mr-2 h-4 w-4 opacity-50" />
-                  <Input
-                    id="email"
-                    name="email"
+              )}
+              <div className="mb-4">
+                <label className="block mb-2 font-medium">Email</label>
+                <div className="flex items-center border rounded">
+                  <Mail className="ml-2 text-gray-500" />
+                  <input
                     type="email"
+                    name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="col-span-3"
+                    className="flex-1 p-2 focus:outline-none"
+                    placeholder="Enter your email"
                   />
                 </div>
               </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="password" className="text-right">
-                  Password
-                </Label>
-                <div className="col-span-3 flex items-center">
-                  <Lock className="mr-2 h-4 w-4 opacity-50" />
-                  <Input
-                    id="password"
-                    name="password"
+              <div className="mb-4">
+                <label className="block mb-2 font-medium">Password</label>
+                <div className="flex items-center border rounded">
+                  <Lock className="ml-2 text-gray-500" />
+                  <input
                     type="password"
+                    name="password"
                     value={formData.password}
                     onChange={handleInputChange}
-                    className="col-span-3"
+                    className="flex-1 p-2 focus:outline-none"
+                    placeholder="Enter your password"
                   />
                 </div>
               </div>
-            </div>
-            <DialogFooter>
-              <Button type="submit" onClick={() => handleSubmit("Sign Up")}>
-                Sign Up
-              </Button>
-            </DialogFooter>
-          </TabsContent>
-          <TabsContent value="login">
-            <DialogHeader>
-              <DialogTitle>Login to your account</DialogTitle>
-              <DialogDescription>Enter your credentials to access your account.</DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="login-email" className="text-right">
-                  Email
-                </Label>
-                <div className="col-span-3 flex items-center">
-                  <Mail className="mr-2 h-4 w-4 opacity-50" />
-                  <Input
-                    id="login-email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="col-span-3"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="login-password" className="text-right">
-                  Password
-                </Label>
-                <div className="col-span-3 flex items-center">
-                  <Lock className="mr-2 h-4 w-4 opacity-50" />
-                  <Input
-                    id="login-password"
-                    name="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    className="col-span-3"
-                  />
-                </div>
-              </div>
-            </div>
-            <DialogFooter className="flex flex-col items-center sm:flex-row sm:justify-between">
-              <Button variant="link" className="mb-2 sm:mb-0">
-                Forgot Password?
-              </Button>
-              <Button type="submit" onClick={() => handleSubmit("Login")}>
-                Login
-              </Button>
-            </DialogFooter>
-          </TabsContent>
-        </Tabs>
-        {error && <div className="text-red-500 text-sm mt-4 text-center">{error}</div>}
-        {successMessage && <div className="text-green-500 text-sm mt-4 text-center">{successMessage}</div>}
-      </DialogContent>
-    </Dialog>
-  )
-}
+              {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
+              {successMessage && <div className="text-green-500 text-sm mb-4">{successMessage}</div>}
+              <button
+                type="button"
+                onClick={() => handleSubmit(activeTab === "signup" ? "Sign Up" : "Login")}
+                className="w-full bg-blue-500 text-white py-2 rounded-lg"
+              >
+                {activeTab === "signup" ? "Sign Up" : "Login"}
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+LoginRegisterDialog.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+export default LoginRegisterDialog;
