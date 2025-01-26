@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ChevronDown, Plane, Calendar, Users } from "lucide-react";
@@ -52,6 +52,16 @@ const FlightSearch = () => {
     setShowToDropdown(false);
   };
 
+   // Auto-set the departure and return dates
+   useEffect(() => {
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+
+    setDepartureDate(today);
+    setReturnDate(tomorrow);
+  }, []);
+
   const handleDepartureDateChange = (date) => {
     setDepartureDate(date);
     if (returnDate && date > returnDate) {
@@ -82,7 +92,7 @@ const FlightSearch = () => {
 
   return (
     <div className="flex justify-center">
-    <div className=" bg-white rounded-xl w-[95%]  shadow-lg p-4 m-3 ">
+    <div className=" bg-white rounded-xl w-full  shadow-lg p-4 m-3 ">
       <div className="flex items-center space-x-4">
         {/* From City */}
         <div className="relative flex-1 min-w-[200px]">
@@ -160,35 +170,35 @@ const FlightSearch = () => {
 
         {/* Departure Date */}
         <div className="relative flex-0.5 min-w-[150px] z-30">
-          <label className="block text-xs font-medium text-gray-600 mb-1">DEPARTURE</label>
-          <div className="relative">
-            <DatePicker
-              selected={departureDate}
-              onChange={handleDepartureDateChange}
-              minDate={today}
-              placeholderText="Select date"
-              className="w-full p-2 border rounded-lg cursor-pointer hover:border-blue-500 text-sm"
-              dateFormat="dd MMM yyyy"
-            />
-            <Calendar className="absolute right-2 top-2 text-blue-500 h-4 w-4" />
+            <label className="block text-xs font-medium text-gray-600 mb-1">DEPARTURE</label>
+            <div className="relative">
+              <DatePicker
+                selected={departureDate}
+                onChange={handleDepartureDateChange}
+                minDate={today}
+                placeholderText="Select date"
+                className="w-full p-2 border rounded-lg cursor-pointer hover:border-blue-500 text-sm"
+                dateFormat="dd MMM yyyy"
+              />
+              <Calendar className="absolute right-2 top-2 text-blue-500 h-4 w-4" />
+            </div>
           </div>
-        </div>
 
         {/* Return Date */}
         <div className="relative flex-0.5 min-w-[150px] z-30">
-          <label className="block text-xs font-medium text-gray-600 mb-1">RETURN</label>
-          <div className="relative">
-            <DatePicker
-              selected={returnDate}
-              onChange={setReturnDate}
-              minDate={departureDate || today}
-              placeholderText="Select date"
-              className="w-full p-2 border rounded-lg cursor-pointer hover:border-blue-500 text-sm"
-              dateFormat="dd MMM yyyy"
-            />
-            <Calendar className="absolute right-2 top-2 text-blue-500 h-4 w-4" />
+            <label className="block text-xs font-medium text-gray-600 mb-1">RETURN</label>
+            <div className="relative">
+              <DatePicker
+                selected={returnDate}
+                onChange={setReturnDate}
+                minDate={departureDate || today}
+                placeholderText="Select date"
+                className="w-full p-2 border rounded-lg cursor-pointer hover:border-blue-500 text-sm"
+                dateFormat="dd MMM yyyy"
+              />
+              <Calendar className="absolute right-2 top-2 text-blue-500 h-4 w-4" />
+            </div>
           </div>
-        </div>
 
         {/* Travellers & Class */}
         <div className="relative flex-1 min-w-[200px]">
@@ -270,7 +280,7 @@ const FlightSearch = () => {
         </div>
       </div>
     </div>
-    </div>
+    </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
   );
 };
 

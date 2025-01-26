@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { ChevronDown, MapPin, Calendar, Users } from "lucide-react"
@@ -58,6 +58,16 @@ const TourSearch = () => {
     }
   }
 
+  // Auto-set the departure and return dates
+       useEffect(() => {
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+    
+        handleDepartureDateChange(today);
+        setReturnDate(tomorrow);
+      }, []);
+
   const getTotalGuests = () => {
     return guests.adults + guests.children
   }
@@ -78,7 +88,7 @@ const TourSearch = () => {
 
   return (
     <div className="flex align-center  justify-center ">
-    <div className="bg-white rounded-xl w-[95%] shadow-lg px-7 py-2">
+    <div className="bg-white rounded-xl w-full shadow-lg px-7 py-2">
       <div className="flex items-center space-x-4 m-4 px-2">
         {/* From City */}
         <div className="relative flex-1 min-w-[200px]">

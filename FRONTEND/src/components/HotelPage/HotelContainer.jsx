@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Building2, Calendar, Users, Search, MapPin } from "lucide-react";
@@ -21,6 +21,16 @@ const HotelSearch = () => {
       childrenAges: []
     }
   ]);
+
+  // Auto-set the departure and return dates
+     useEffect(() => {
+      const today = new Date();
+      const tomorrow = new Date();
+      tomorrow.setDate(today.getDate() + 1);
+  
+      handleCheckInChange(today);
+      setCheckOut(tomorrow);
+    }, []);
 
   const cities = [
     { name: "Mumbai", address: "Maharashtra, India", trending: true },

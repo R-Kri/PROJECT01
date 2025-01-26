@@ -4,6 +4,7 @@ import Container from './Container';
 import Navbar from './Navbar';
 import Header from './Header';
 import LoginRegisterDialog from '../Login/LoginRegisterDialog';
+import { SearchResults } from "./SearchResults";
 
 function HomePage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -11,8 +12,12 @@ function HomePage() {
   // Handlers to open and close the dialog
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
+  const [showResults, setShowResults] = useState(false);
+
+  const toggleResults = () => setShowResults(!showResults)
 
   return (
+    <div>
     <div
       className="h-[80%] w-[100%] bg-cover bg-center"
       style={{
@@ -24,10 +29,16 @@ function HomePage() {
         <Header onLoginClick={openDialog} />
         <Navbar />
         <Container />
-        <SearchButton />
+        <div className="mx-auto max-w-4xl">
+          <SearchButton onClick={toggleResults} />
+        </div>
         {/* Render Login/Register Dialog */}
         <LoginRegisterDialog isOpen={isDialogOpen} onClose={closeDialog} />
       </div>
+      </div>
+      <div>
+      <SearchResults isVisible={showResults} />
+    </div>
     </div>
   );
 }
