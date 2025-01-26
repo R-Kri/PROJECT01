@@ -19,11 +19,12 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
       [name]: value,
     }));
   };
-
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const validatePassword = (password) => password.length >= 8;
 
-  const handleSubmit = (action) => {
+  const handleSubmit = async(action) => {
+
+  
     const { email, password, name } = formData;
 
     if (!validateEmail(email)) {
@@ -42,6 +43,23 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
     setError("");
     setSuccessMessage(`${action} successful!`);
     setTimeout(() => setSuccessMessage(""), 3000);
+    //fetch API to send data to server
+    const response= await fetch('http://localhost:5001/api/auth/register',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+      },
+      body:JSON.stringify(formData)
+    }
+  )
+  console.log(response);
+   if(response.ok){
+     setSuccessMessage("User created successfully");
+     onClose();
+   }
+
+
+
   };
 
   if (!isOpen) return null;

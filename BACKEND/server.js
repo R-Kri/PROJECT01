@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-
+import cor from 'cors';
 // Importing routes
 import authRoute from './routes/auth.js';
 import hotelRoute from './routes/hotels.js';
@@ -10,14 +10,18 @@ import userRoute from './routes/users.js';
 import roomRoute from './routes/rooms.js';
 import flightRoute from './routes/flights.js';
 import tourPackageRoute from './routes/tourPackage.js';
-
+import morgan from 'morgan';
 // Load environment variables
 dotenv.config();
 
 // App initialization
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+app.use(cor({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
+app.use(morgan('dev'));
 // Middleware
 app.use(express.json());
 app.use(cookieParser());

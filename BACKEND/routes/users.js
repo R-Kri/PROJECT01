@@ -19,7 +19,7 @@ const router = express.Router();
   
 
 // CREATE
-router.post("/", verifyUser, createUser);
+router.post("/", createUser);
 
 // UPDATE
 router.put("/:id", verifyUser, updateUser);

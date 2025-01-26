@@ -8,8 +8,14 @@ import TourContainer from "./TourContainer";
 import SearchButton from "../HomePage/SearchButton";
 import TourCard from "./TourCard";
 import { tours } from "../data/tours"
+import LoginRegisterDialog from "../Login/LoginRegisterDialog";
 
 function TourPage() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  
+    // Handlers to open and close the dialog
+    const openDialog = () => setIsDialogOpen(true);
+    const closeDialog = () => setIsDialogOpen(false);
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -30,10 +36,11 @@ function TourPage() {
         }}
       >
         <div className="relative container mx-auto py-3 px-5">
-          <Header />
+          <Header onLoginClick={openDialog}  />
           <Navbar />
           <TourContainer />
           <SearchButton onClick={handleSearch} loading={loading} />
+          <LoginRegisterDialog isOpen={isDialogOpen} onClose={closeDialog} />
         </div>
       </div>
 
