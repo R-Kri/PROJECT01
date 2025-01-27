@@ -30,7 +30,7 @@ function TourPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div
-        className="relative h-[60vh] w-full bg-cover bg-center before:absolute before:inset-0 before:bg-black/40"
+        className="relative h-[80vh] w-full bg-cover bg-center before:absolute before:inset-0 before:bg-black/40"
         style={{
           backgroundImage: `url('https://hblimg.mmtcdn.com/content/hubble/img/new_dest_imagemar/mmt/activities/m_Bali_1_l_658_1200.jpg')`,
         }}
@@ -47,7 +47,8 @@ function TourPage() {
       {showResults && (
         <div className="container mx-auto py-8 px-5">
           <h2 className="text-2xl font-semibold mb-6">Available Tour Packages</h2>
-          <div className="grid md:grid-cols-2 gap-6">
+          {/* Responsive grid: 1 column on small screens, 2 on medium, 3 on large */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tours.map((tour, index) => (
               <TourCard key={index} {...tour} />
             ))}

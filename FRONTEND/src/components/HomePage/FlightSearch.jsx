@@ -91,85 +91,85 @@ const FlightSearch = () => {
   today.setHours(0, 0, 0, 0);
 
   return (
-    <div className="flex justify-center">
-    <div className=" bg-white rounded-xl w-full  shadow-lg p-4 m-3 ">
-      <div className="flex items-center space-x-4">
-        {/* From City */}
-        <div className="relative flex-1 min-w-[200px]">
-          <label className="block text-xs font-medium text-gray-600 mb-1">FROM</label>
-          <div
-            className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
-            onClick={() => {
-              setShowFromDropdown(!showFromDropdown);
-              setShowToDropdown(false);
-              setShowTravellerMenu(false);
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-lg font-bold">{fromCity.code}</div>
-                <div className="text-xs text-gray-600">{fromCity.name}</div>
-              </div>
-              <Plane className="text-blue-500 h-4 w-4" />
-            </div>
-          </div>
-          {showFromDropdown && (
-            <div className="absolute z-20 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
-              {cities.map((city) => (
-                <div
-                  key={city.code}
-                  className={`p-2 cursor-pointer hover:bg-blue-50 ${
-                    city.code === toCity.code ? 'opacity-50' : ''
-                  }`}
-                  onClick={() => handleFromCityClick(city)}
-                >
-                  <div className="font-bold">{city.code}</div>
-                  <div className="text-xs">{city.name}</div>
+    <div className="flex justify-center p-4">
+      <div className="bg-white rounded-xl shadow-lg p-4 w-full max-w-screen-xl">
+        <div className="flex flex-wrap items-center justify-between gap-4 md:gap-8">
+          {/* From City */}
+          <div className="relative flex-1 min-w-[200px]">
+            <label className="block text-xs font-medium text-gray-600 mb-1">FROM</label>
+            <div
+              className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
+              onClick={() => {
+                setShowFromDropdown(!showFromDropdown);
+                setShowToDropdown(false);
+                setShowTravellerMenu(false);
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-lg font-bold">{fromCity.code}</div>
+                  <div className="text-xs text-gray-600">{fromCity.name}</div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* To City */}
-        <div className="relative flex-1 min-w-[200px]">
-          <label className="block text-xs font-medium text-gray-600 mb-1">TO</label>
-          <div
-            className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
-            onClick={() => {
-              setShowToDropdown(!showToDropdown);
-              setShowFromDropdown(false);
-              setShowTravellerMenu(false);
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-lg font-bold">{toCity.code}</div>
-                <div className="text-xs text-gray-600">{toCity.name}</div>
+                <Plane className="text-blue-500 h-4 w-4" />
               </div>
-              <Plane className="text-blue-500 h-4 w-4" />
             </div>
+            {showFromDropdown && (
+              <div className="absolute z-20 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {cities.map((city) => (
+                  <div
+                    key={city.code}
+                    className={`p-2 cursor-pointer hover:bg-blue-50 ${
+                      city.code === toCity.code ? 'opacity-50' : ''
+                    }`}
+                    onClick={() => handleFromCityClick(city)}
+                  >
+                    <div className="font-bold">{city.code}</div>
+                    <div className="text-xs">{city.name}</div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-          {showToDropdown && (
-            <div className="absolute z-20 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
-              {cities.map((city) => (
-                <div
-                  key={city.code}
-                  className={`p-2 cursor-pointer hover:bg-blue-50 ${
-                    city.code === fromCity.code ? 'opacity-50' : ''
-                  }`}
-                  onClick={() => handleToCityClick(city)}
-                >
-                  <div className="font-bold">{city.code}</div>
-                  <div className="text-xs">{city.name}</div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
 
-        {/* Departure Date */}
-        <div className="relative flex-0.5 min-w-[150px] z-30">
+          {/* To City */}
+          <div className="relative flex-1 min-w-[200px]">
+            <label className="block text-xs font-medium text-gray-600 mb-1">TO</label>
+            <div
+              className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
+              onClick={() => {
+                setShowToDropdown(!showToDropdown);
+                setShowFromDropdown(false);
+                setShowTravellerMenu(false);
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-lg font-bold">{toCity.code}</div>
+                  <div className="text-xs text-gray-600">{toCity.name}</div>
+                </div>
+                <Plane className="text-blue-500 h-4 w-4" />
+              </div>
+            </div>
+            {showToDropdown && (
+              <div className="absolute z-20 w-full mt-1 bg-white border rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                {cities.map((city) => (
+                  <div
+                    key={city.code}
+                    className={`p-2 cursor-pointer hover:bg-blue-50 ${
+                      city.code === fromCity.code ? 'opacity-50' : ''
+                    }`}
+                    onClick={() => handleToCityClick(city)}
+                  >
+                    <div className="font-bold">{city.code}</div>
+                    <div className="text-xs">{city.name}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Departure Date */}
+          <div className="relative flex-1 min-w-[150px] z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">DEPARTURE</label>
             <div className="relative">
               <DatePicker
@@ -184,8 +184,8 @@ const FlightSearch = () => {
             </div>
           </div>
 
-        {/* Return Date */}
-        <div className="relative flex-0.5 min-w-[150px] z-30">
+          {/* Return Date */}
+          <div className="relative flex-1 min-w-[150px] z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">RETURN</label>
             <div className="relative">
               <DatePicker
@@ -200,47 +200,48 @@ const FlightSearch = () => {
             </div>
           </div>
 
-        {/* Travellers & Class */}
-        <div className="relative flex-1 min-w-[200px]">
-          <label className="block text-xs font-medium text-gray-600 mb-1">TRAVELLERS & CLASS</label>
-          <div
-            className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
-            onClick={() => {
-              setShowTravellerMenu(!showTravellerMenu);
-              setShowFromDropdown(false);
-              setShowToDropdown(false);
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-sm font-bold">{getTotalTravellers()} Traveller(s)</div>
-                <div className="text-xs text-gray-600">{cabinClass}</div>
+          {/* Travellers & Class */}
+          <div className="relative flex-1 min-w-[200px]">
+            <label className="block text-xs font-medium text-gray-600 mb-1">TRAVELLERS & CLASS</label>
+            <div
+              className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
+              onClick={() => {
+                setShowTravellerMenu(!showTravellerMenu);
+                setShowFromDropdown(false);
+                setShowToDropdown(false);
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-sm font-bold">{getTotalTravellers()} Traveller(s)</div>
+                  <div className="text-xs text-gray-600">{cabinClass}</div>
+                </div>
+                <Users className="text-blue-500 h-4 w-4" />
               </div>
-              <Users className="text-blue-500 h-4 w-4" />
             </div>
-          </div>
-          {showTravellerMenu && (
-            <div className="absolute z-20 right-0 mt-1 bg-white border rounded-lg shadow-lg p-4 w-72">
-              {/* Travellers Selection */}
-              <div className="space-y-3">
-                {[
-                  { type: 'adults', label: 'Adults', subtitle: '12+ years' },
-                  { type: 'children', label: 'Children', subtitle: '2-11 years' },
-                  { type: 'infants', label: 'Infants', subtitle: '0-2 years' }
-                ].map(({ type, label, subtitle }) => (
-                  <div key={type} className="flex items-center justify-between">
-                    <div>
-                      <div className="text-sm font-medium">{label}</div>
-                      <div className="text-xs text-gray-500">{subtitle}</div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => updateTravellers(type, false)}
-                        className="px-2 py-1 border rounded-lg text-sm"
-                        disabled={type === 'adults' ? travellers[type] <= 1 : travellers[type] <= 0}
-                      >
-                        -
-                      </button>
+            {showTravellerMenu && (
+              <div className="absolute z-20 right-0 mt-1 bg-white border rounded-lg shadow-lg p-4 w-72">
+                {/* Travellers Selection */}
+                <div className="space-y-3">
+                  {[
+                    { type: 'adults', label: 'Adults', subtitle: '12+ years' },
+                    { type: 'children', label: 'Children', subtitle: '2-11 years' },
+                    { type: 'infants', label: 'Infants', subtitle: '0-2 years' }
+                  ].map(({ type, label, subtitle }) => (
+                    <div key={type} className="flex items-center justify-between">
+                      <div>
+                        <div className="text-sm font-medium">{label}</div>
+                        <div className="text-xs text-gray-500">{subtitle}</div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => updateTravellers(type, false)}
+                          className="px-2 py-1 border rounded-lg text-sm"
+                          disabled={type === 'adults' ? travellers[type] <= 1 : travellers[type] <= 0}
+                        >
+                          -
+                        </button>
+
                       <span className="w-4 text-center text-sm">{travellers[type]}</span>
                       <button
                         onClick={() => updateTravellers(type, true)}
