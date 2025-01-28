@@ -92,10 +92,10 @@ const FlightSearch = () => {
 
   return (
     <div className="flex justify-center p-4">
-      <div className="bg-white rounded-xl shadow-lg p-4 w-full max-w-screen-xl">
+      <div className="bg-white rounded-xl shadow-lg p-2 w-full max-w-screen-xl">
         <div className="flex flex-wrap items-center justify-between gap-4 md:gap-8">
           {/* From City */}
-          <div className="relative flex-1 min-w-[200px]">
+          <div className="relative flex-1 min-w-[200px] z-40">
             <label className="block text-xs font-medium text-gray-600 mb-1">FROM</label>
             <div
               className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
@@ -132,7 +132,7 @@ const FlightSearch = () => {
           </div>
 
           {/* To City */}
-          <div className="relative flex-1 min-w-[200px]">
+          <div className="relative flex-1 min-w-[200px] z-40">
             <label className="block text-xs font-medium text-gray-600 mb-1">TO</label>
             <div
               className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"

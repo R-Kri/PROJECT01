@@ -92,7 +92,7 @@ const TourSearch = () => {
       <div className="searchBox bg-white rounded-xl w-full max-w-7xl shadow-lg p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* From City */}
-          <div className="relative w-full">
+          <div className="relative w-full z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">FROM</label>
             <div
               className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
@@ -127,7 +127,7 @@ const TourSearch = () => {
           </div>
 
           {/* To City */}
-          <div className="relative w-full">
+          <div className="relative w-full z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">TO</label>
             <div
               className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
@@ -162,7 +162,7 @@ const TourSearch = () => {
           </div>
 
           {/* Departure Date */}
-          <div className="relative w-full">
+          <div className="relative w-full z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">DEPARTURE</label>
             <div className="relative">
               <DatePicker
@@ -178,7 +178,7 @@ const TourSearch = () => {
           </div>
 
           {/* Return Date */}
-          <div className="relative w-full">
+          <div className="relative w-full z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">RETURN</label>
             <div className="relative">
               <DatePicker
@@ -194,7 +194,7 @@ const TourSearch = () => {
           </div>
 
           {/* Rooms & Guests */}
-          <div className="relative w-full">
+          <div className="relative w-full z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">ROOMS & GUESTS</label>
             <div
               className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
@@ -216,7 +216,7 @@ const TourSearch = () => {
             {showGuestsMenu && (
               <div className="absolute z-20 right-0 left-0 sm:left-auto mt-1 bg-white border rounded-lg shadow-lg p-4 w-full sm:w-72">
                 {/* Room Selection */}
-                <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center justify-between mb-4 z-30">
                   <div className="text-sm font-medium">Rooms</div>
                   <div className="flex items-center gap-2">
                     <button
@@ -237,7 +237,7 @@ const TourSearch = () => {
                   </div>
                 </div>
                 {/* Guests Selection */}
-                <div className="space-y-3">
+                <div className="space-y-3 z-30">
                   {[
                     { type: "adults", label: "Adults", subtitle: "12+ years" },
                     { type: "children", label: "Children", subtitle: "2-11 years" },

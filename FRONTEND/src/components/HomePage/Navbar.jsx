@@ -6,7 +6,7 @@ import LuggageIcon from "@mui/icons-material/Luggage";
 
 const Navbar = () => (
   <>
-    <nav className="bg-white w-[50%] relative z-20 max-w-md m-auto mt-4 rounded-lg border-gray-600 shadow-2xl flex justify-between px-5 py-3">
+    <nav className="bg-white w-[90%] relative z-20 max-w-md m-auto mt-4 rounded-lg border-gray-600 shadow-2xl flex justify-between px-5 py-3">
       <Link to="/">
         <span>
           <span className="text-sm flex flex-col items-center mb-2">
@@ -37,7 +37,7 @@ const Navbar = () => (
               className="mb-1"
             />
           </span>
-          <span className="text-gray-800">Tour Packages</span>
+          <span className="text-gray-800 ">Tour Packages</span>
         </span>
       </Link>
     </nav>

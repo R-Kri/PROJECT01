@@ -95,19 +95,19 @@ const HotelSearch = () => {
 
   return (
     <div className="bg-white w-full rounded-xl -mt-10 -mb-10 shadow-lg p-4 sm:p-6 md:p-8 lg:p-10">
-      <div className="space-y-6 py-7">
+      <div className="space-y-5 py-8">
         {/* Room Type Selection */}
         <ul className="flex flex-wrap gap-4 justify-center sm:justify-start">
           <li
             className={`${roomTypes === "four" ? "bg-blue-300 font-semibold" : ""} rounded-full pr-2 cursor-pointer transition-colors duration-200`}
             onClick={() => setRoomTypes("four")}
           >
-            <span className="flex items-center px-4 py-2">
+            <span className="flex items-center px-2 py-2">
               <input
                 type="radio"
                 checked={roomTypes === "four"}
                 onChange={() => setRoomTypes("four")}
-                className="mr-2"
+                className="mr-1"
               />
               <Building2 className="h-4 w-4 mr-2" />
               Up to 4 Rooms
@@ -117,7 +117,7 @@ const HotelSearch = () => {
             className={`${roomTypes === "group" ? "bg-blue-300 font-semibold" : ""} rounded-full pr-2 cursor-pointer transition-colors duration-200`}
             onClick={() => setRoomTypes("group")}
           >
-            <span className="flex items-center px-4 py-2">
+            <span className="flex items-center px-2 py-2">
               <input
                 type="radio"
                 checked={roomTypes === "group"}
@@ -133,7 +133,7 @@ const HotelSearch = () => {
         {/* Main Search Bar */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5 border-solid rounded-lg shadow-lg">
           {/* City Selection */}
-          <div className="relative">
+          <div className="relative z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">CITY OR PROPERTY</label>
             <div
               className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"
@@ -175,7 +175,7 @@ const HotelSearch = () => {
           </div>
 
           {/* Check-in Date */}
-          <div className="relative">
+          <div className="relative z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">CHECK IN</label>
             <div className="relative">
               <DatePicker
@@ -191,7 +191,7 @@ const HotelSearch = () => {
           </div>
 
           {/* Check-out Date */}
-          <div className="relative">
+          <div className="relative z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">CHECK OUT</label>
             <div className="relative">
               <DatePicker
@@ -207,7 +207,7 @@ const HotelSearch = () => {
           </div>
 
           {/* Guest Selection */}
-          <div className="relative">
+          <div className="relative z-30">
             <label className="block text-xs font-medium text-gray-600 mb-1">GUESTS</label>
             <div
               className="p-2 border rounded-lg cursor-pointer hover:border-blue-500"

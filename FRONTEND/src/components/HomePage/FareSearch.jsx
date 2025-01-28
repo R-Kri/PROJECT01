@@ -1,138 +1,59 @@
-import React, { useState } from "react";
+import React, { useState } from "react"
 
 const FareSearch = () => {
-  const [selectedFare, setSelectedFare] = useState("regular");
+  const [selectedFare, setSelectedFare] = useState("regular")
 
   const handleFare = (value) => {
-    setSelectedFare(value);
-  };
+    setSelectedFare(value)
+  }
+
+  const fares = [
+    { value: "regular", title: "Regular", description: "Regular fares" },
+    { value: "student", title: "Student", description: "Extra discounts/baggage" },
+    { value: "senior", title: "Senior Citizen", description: "Up to ₹600 off" },
+    { value: "forces", title: "Armed Forces", description: "Up to ₹600 off" },
+    { value: "doctor", title: "Doctor & Nurses", description: "Up to ₹600 off" },
+  ]
 
   return (
-    <div className="mt-3 flex items-center p-5 mb-5">
-      <div>
-        <div className="font-bold text-l mr-4">Select a special fare</div>
-        <span className="text-white px-2 text-m rounded bg-green-600 font-bold">
-          EXTRA SAVINGS
-        </span>
+    <div className="mt-3 p-4 md:p-5 mb-5 bg-white rounded-lg shadow">
+      <div className="flex flex-col md:flex-row md:items-center mb-4">
+        <div className="mb-4 md:mb-0 md:mr-4">
+          <h2 className="font-bold text-lg mb-2">Select a special fare</h2>
+          <span className="inline-block text-white px-2 py-1 text-sm rounded bg-green-600 font-bold">
+            EXTRA SAVINGS
+          </span>
+        </div>
       </div>
-      <div className="ml-4 flex space-x-2 items-center">
-        {/* Regular Fare */}
-        <div
-          className={`${
-            selectedFare === "regular" ? "bg-blue-100" : ""
-          } flex items-start p-1 rounded-l border border-gray-300 cursor-pointer`}
-          onClick={() => handleFare("regular")}
-        >
-          <div className="inline-block px-2">
-            <input
-              type="radio"
-              name="fare"
-              value="regular"
-              checked={selectedFare === "regular"}
-              onChange={() => handleFare("regular")}
-              className="transform scale-125"
-            />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        {fares.map((fare) => (
+          <div
+            key={fare.value}
+            className={`${
+              selectedFare === fare.value ? "bg-blue-100" : "bg-gray-50"
+            } flex items-start p-2 rounded border border-gray-300 cursor-pointer transition-colors duration-200 hover:bg-blue-50`}
+            onClick={() => handleFare(fare.value)}
+          >
+            <div className="flex items-center">
+              <input
+                type="radio"
+                name="fare"
+                value={fare.value}
+                checked={selectedFare === fare.value}
+                onChange={() => handleFare(fare.value)}
+                className="mr-3 transform scale-100"
+              />
+              <div>
+                <div className="font-semibold text-sm md:text-base">{fare.title}</div>
+                <div className="text-xs text-gray-600">{fare.description}</div>
+              </div>
+            </div>
           </div>
-          <div className="px-2">
-            <div className="font-semibold text-l">Regular</div>
-            <div className="text-xs">Regular fares</div>
-          </div>
-        </div>
-
-        {/* Student Fare */}
-        <div
-          className={`${
-            selectedFare === "student" ? "bg-blue-100" : ""
-          } flex items-start p-1 rounded-l border border-gray-300 cursor-pointer`}
-          onClick={() => handleFare("student")}
-        >
-          <div className="inline-block px-2">
-            <input
-              type="radio"
-              name="fare"
-              value="student"
-              checked={selectedFare === "student"}
-              onChange={() => handleFare("student")}
-              className="transform scale-125"
-            />
-          </div>
-          <div className="px-2">
-            <div className="font-semibold text-l">Student</div>
-            <div className="text-xs">Extra discounts/baggage</div>
-          </div>
-        </div>
-
-        {/* Senior Fare */}
-        <div
-          className={`${
-            selectedFare === "senior" ? "bg-blue-100" : ""
-          } flex items-start p-1 rounded-l border border-gray-300`}
-          onClick={() => handleFare("senior")}
-        >
-          <div className="inline-block px-2">
-            <input
-              type="radio"
-              name="fare"
-              value="senior"
-              checked={selectedFare === "senior"}
-              onChange={() => handleFare("senior")}
-              className="transform scale-125"
-            />
-          </div>
-          <div className="px-2">
-            <div className="font-semibold text-l">Senior Citizen</div>
-            <div className="text-xs">Up to ₹600 off</div>
-          </div>
-        </div>
-
-        {/* Armed Forces Fare */}
-        <div
-          className={`${
-            selectedFare === "forces" ? "bg-blue-100" : ""
-          } flex items-start p-1 rounded-l border border-gray-300`}
-          onClick={() => handleFare("forces")}
-        >
-          <div className="inline-block px-2">
-            <input
-              type="radio"
-              name="fare"
-              value="forces"
-              checked={selectedFare === "forces"}
-              onChange={() => handleFare("forces")}
-              className="transform scale-125"
-            />
-          </div>
-          <div className="px-2">
-            <div className="font-semibold text-l">Armed Forces</div>
-            <div className="text-xs">Up to ₹600 off</div>
-          </div>
-        </div>
-
-        {/* Doctor & Nurses Fare */}
-        <div
-          className={`${
-            selectedFare === "doctor" ? "bg-blue-100" : ""
-          } flex items-start p-1 rounded-l border border-gray-300`}
-          onClick={() => handleFare("doctor")}
-        >
-          <div className="inline-block px-2">
-            <input
-              type="radio"
-              name="fare"
-              value="doctor"
-              checked={selectedFare === "doctor"}
-              onChange={() => handleFare("doctor")}
-              className="transform scale-125"
-            />
-          </div>
-          <div className="px-2">
-            <div className="font-semibold text-l">Doctor & Nurses</div>
-            <div className="text-xs">Up to ₹600 off</div>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FareSearch;
+export default FareSearch
+
