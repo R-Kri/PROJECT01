@@ -2,16 +2,25 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { User, Mail, Lock } from "lucide-react"
 
+// Define the main component
 const LoginRegisterDialog = ({ isOpen, onClose }) => {
+  // State for managing active tab (signup or login)
   const [activeTab, setActiveTab] = useState("signup")
+
+  // State for form data
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
   })
+
+  // State for error messages
   const [error, setError] = useState("")
+
+  // State for success messages
   const [successMessage, setSuccessMessage] = useState("")
 
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target
     setFormData((prev) => ({
@@ -20,9 +29,13 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
     }))
   }
 
+  // Email validation function
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+
+  // Password validation function
   const validatePassword = (password) => password.length >= 8
 
+  // Reset form data
   const resetForm = () => {
     setFormData({
       email: "",
@@ -31,17 +44,23 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
     })
   }
 
+  // Handle form submission
   const handleSubmit = async (action) => {
     const { email, password, name } = formData
 
+    // Validate email
     if (!validateEmail(email)) {
       setError("Please enter a valid email address.")
       return
     }
+
+    // Validate password
     if (!validatePassword(password)) {
       setError("Password must be at least 8 characters long.")
       return
     }
+
+    // Validate name for signup
     if (action === "Sign Up" && !name && activeTab === "signup") {
       setError("Please enter your name.")
       return
@@ -51,6 +70,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
 
     try {
       let response
+      // Handle signup
       if (action === "Sign Up") {
         response = await fetch("http://localhost:5001/api/auth/register", {
           method: "POST",
@@ -60,6 +80,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
           body: JSON.stringify(formData),
         })
       } else {
+        // Handle login
         response = await fetch("http://localhost:5001/api/auth/login", {
           method: "POST",
           headers: {
@@ -87,11 +108,14 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
     }
   }
 
+  // If dialog is not open, return null
   if (!isOpen) return null
 
+  // Render the dialog
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+        {/* Dialog header */}
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold">Login / Register</h2>
           <button
@@ -104,6 +128,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
             X
           </button>
         </div>
+        {/* Tabs for signup and login */}
         <div className="tabs mt-4">
           <div className="flex border-b mb-4">
             <button
@@ -123,6 +148,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
               Login
             </button>
           </div>
+          {/* Form */}
           <div>
             <form
               onSubmit={(e) => {
@@ -130,6 +156,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
                 handleSubmit(activeTab === "signup" ? "Sign Up" : "Login")
               }}
             >
+              {/* Name input (only for signup) */}
               {activeTab === "signup" && (
                 <div className="mb-4">
                   <label className="block mb-2 font-medium">Name</label>
@@ -146,6 +173,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
                   </div>
                 </div>
               )}
+              {/* Email input */}
               <div className="mb-4">
                 <label className="block mb-2 font-medium">Email</label>
                 <div className="flex items-center border rounded">
@@ -160,6 +188,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
                   />
                 </div>
               </div>
+              {/* Password input */}
               <div className="mb-4">
                 <label className="block mb-2 font-medium">Password</label>
                 <div className="flex items-center border rounded">
@@ -174,8 +203,10 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
                   />
                 </div>
               </div>
+              {/* Error and success messages */}
               {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
               {successMessage && <div className="text-green-500 text-sm mb-4">{successMessage}</div>}
+              {/* Submit button */}
               <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg">
                 {activeTab === "signup" ? "Sign Up" : "Login"}
               </button>
@@ -187,6 +218,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
   )
 }
 
+// PropTypes for type checking
 LoginRegisterDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
