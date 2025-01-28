@@ -1,79 +1,112 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { User, Mail, Lock } from "lucide-react";
+import React, { useState } from "react"
+import PropTypes from "prop-types"
+import { User, Mail, Lock } from "lucide-react"
 
 const LoginRegisterDialog = ({ isOpen, onClose }) => {
-  const [activeTab, setActiveTab] = useState("signup");
+  const [activeTab, setActiveTab] = useState("signup")
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
-  });
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
+  })
+  const [error, setError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }));
-  };
-  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  const validatePassword = (password) => password.length >= 8;
+    }))
+  }
 
-  const handleSubmit = async(action) => {
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  const validatePassword = (password) => password.length >= 8
 
-  
-    const { email, password, name } = formData;
+  const resetForm = () => {
+    setFormData({
+      email: "",
+      password: "",
+      name: "",
+    })
+  }
+
+  const handleSubmit = async (action) => {
+    const { email, password, name } = formData
 
     if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
+      setError("Please enter a valid email address.")
+      return
     }
     if (!validatePassword(password)) {
-      setError("Password must be at least 8 characters long.");
-      return;
+      setError("Password must be at least 8 characters long.")
+      return
     }
     if (action === "Sign Up" && !name && activeTab === "signup") {
-      setError("Please enter your name.");
-      return;
+      setError("Please enter your name.")
+      return
     }
 
-    setError("");
-    setSuccessMessage(`${action} successful!`);
-    setTimeout(() => setSuccessMessage(""), 3000);
-    //fetch API to send data to server
-    const response= await fetch('http://localhost:5001/api/auth/register',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-      },
-      body:JSON.stringify(formData)
+    setError("")
+
+    try {
+      let response
+      if (action === "Sign Up") {
+        response = await fetch("http://localhost:5001/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        })
+      } else {
+        response = await fetch("http://localhost:5001/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: formData.email, password: formData.password }),
+        })
+      }
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSuccessMessage(data.message)
+        resetForm() // Reset the form data
+        setTimeout(() => {
+          setSuccessMessage("")
+          onClose()
+        }, 2000)
+      } else {
+        setError(data.message || "An error occurred")
+      }
+    } catch (error) {
+      console.error("Error:", error)
+      setError("An error occurred. Please try again.")
     }
-  )
-  console.log(response);
-   if(response.ok){
-     setSuccessMessage("User created successfully");
-     onClose();
-   }
+  }
 
-
-
-  };
-
-  if (!isOpen) return null;
+  if (!isOpen) return null
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold">Login / Register</h2>
-          <button onClick={onClose} className="text-red-500 font-bold">X</button>
+          <button
+            onClick={() => {
+              resetForm()
+              onClose()
+            }}
+            className="text-red-500 font-bold"
+          >
+            X
+          </button>
         </div>
         <div className="tabs mt-4">
           <div className="flex border-b mb-4">
-            <button 
+            <button
               onClick={() => setActiveTab("signup")}
               className={`px-4 py-2 font-bold border-b-2 ${
                 activeTab === "signup" ? "border-black" : "border-transparent"
@@ -81,7 +114,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
             >
               Sign Up
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab("login")}
               className={`px-4 py-2 font-bold border-b-2 ${
                 activeTab === "login" ? "border-black" : "border-transparent"
@@ -91,7 +124,12 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
             </button>
           </div>
           <div>
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault()
+                handleSubmit(activeTab === "signup" ? "Sign Up" : "Login")
+              }}
+            >
               {activeTab === "signup" && (
                 <div className="mb-4">
                   <label className="block mb-2 font-medium">Name</label>
@@ -138,11 +176,7 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
               </div>
               {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
               {successMessage && <div className="text-green-500 text-sm mb-4">{successMessage}</div>}
-              <button
-                type="button"
-                onClick={() => handleSubmit(activeTab === "signup" ? "Sign Up" : "Login")}
-                className="w-full bg-blue-500 text-white py-2 rounded-lg"
-              >
+              <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-lg">
                 {activeTab === "signup" ? "Sign Up" : "Login"}
               </button>
             </form>
@@ -150,12 +184,13 @@ const LoginRegisterDialog = ({ isOpen, onClose }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 LoginRegisterDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-};
+}
 
-export default LoginRegisterDialog;
+export default LoginRegisterDialog
+
