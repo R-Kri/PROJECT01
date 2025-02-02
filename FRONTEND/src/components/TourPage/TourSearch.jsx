@@ -206,7 +206,7 @@ const TourSearch = () => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-bold">
+                  <div className="text-sm">
                     {rooms} Room, {getTotalGuests()} Guest(s)
                   </div>
                 </div>

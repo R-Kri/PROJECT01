@@ -213,7 +213,7 @@ const FlightSearch = () => {
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-bold">{getTotalTravellers()} Traveller(s)</div>
+                  <div className="text-sm">{getTotalTravellers()} Traveller(s)</div>
                   <div className="text-xs text-gray-600">{cabinClass}</div>
                 </div>
                 <Users className="text-blue-500 h-4 w-4" />
