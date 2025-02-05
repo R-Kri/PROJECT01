@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, deleteUser, getAllUsers, getUser, updateUser } from "../controllers/user.js";
+import { createUser, deleteUser, getAllUsers, getDetails, getUser, updateUser } from "../controllers/user.js";
 import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
 const router = express.Router();
@@ -29,6 +29,8 @@ router.delete("/:id", verifyUser, deleteUser);
 
 // GET
 router.get("/:id", verifyUser, getUser);
+
+router.get("/me", verifyToken, getDetails);
 
 // GET ALL
 router.get("/", verifyAdmin, getAllUsers);

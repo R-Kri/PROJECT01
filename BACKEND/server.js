@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
-import cor from 'cors';
+import cors from 'cors';
 // Importing routes
 import authRoute from './routes/auth.js';
 import hotelRoute from './routes/hotels.js';
@@ -17,10 +17,21 @@ dotenv.config();
 // App initialization
 const app = express();
 const PORT = process.env.PORT || 5000;
-app.use(cor({
-  origin: 'http://localhost:5173',
-  credentials: true,
-}));
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // If you're using cookies or sessions
+  })
+);
+
 app.use(morgan('dev'));
 // Middleware
 app.use(express.json());

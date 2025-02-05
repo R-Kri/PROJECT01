@@ -5,9 +5,26 @@ import Navbar from './Navbar';
 import Header from './Header';
 import LoginRegisterDialog from '../Login/LoginRegisterDialog';
 import { SearchResults } from "./SearchResults";
+import axios from 'axios';
+// import { get } from 'mongoose';
 
 function HomePage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [flightData, setFlightData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [Name,setName]=useState('');
+  // const getUserDetails = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:5001/api/users/me", {
+  //       withCredentials: true
+  //     });
+  //     console.log("Token verification:", response.data);
+  //   } catch (error) {
+  //     console.error("Token verification failed:", error.response?.data);
+  //   }
+  // };
 
   const data = {
     Auth_Header: {
@@ -42,10 +59,15 @@ function HomePage() {
       }
     ]
   };
+  // useEffect(() => {
+  //   getUserDetails(); 
+  // }, []);
 
-  const dataget = async () => {
+  const fetchFlightData = async () => {
+    setIsLoading(true);
+    setError(null);
     try {
-      const response = await fetch('http://correct-domain/airlinehost/AirAPIService.svc/JSONService/Air_Search', {
+      const response = await fetch('http://api.travelogy.online/Flight/AirAPIService.svc/JSONService/Air_Search', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,22 +81,59 @@ function HomePage() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const datao = await response.json();
-      console.log(datao);
+      const responseData = await response.json();
+      setFlightData(responseData);
     } catch (error) {
       console.error('Fetch error:', error);
+      setError('Failed to fetch flight data');
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const getUser = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      if (!token) return
+
+      const response = await fetch("http://localhost:5001/api/users/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      console.log(response);
+      if (response.ok) {
+        const data = await response.json()
+        setUsername(data.username)
+      }
+    } catch (error) {
+      console.log("Error fetching user data:", error)
+    }
+  }
+
+
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  // used effect to fetch user data when username changes
+  useEffect(() => {
+    getUser()
+  }, [username])
 
   const openDialog = () => setIsDialogOpen(true);
   const closeDialog = () => setIsDialogOpen(false);
   const [showResults, setShowResults] = useState(false);
 
-  useEffect(() => {
-    dataget();
-  }, []);
-
-  const toggleResults = () => setShowResults(!showResults);
+  const toggleResults = () => {
+    setShowResults(!showResults);
+    if (!flightData && !isLoading) {
+      fetchFlightData();
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -85,17 +144,22 @@ function HomePage() {
         }}
       >
         <div className="container mx-auto py-3 px-5 flex flex-col flex-grow">
-          <Header onLoginClick={openDialog} className="flex-shrink-0" />
+          <Header onLoginClick={openDialog} username={Name}  className="flex-shrink-0" />
           <Navbar className="flex-shrink-0" />
           <Container className="flex-grow" />
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 flex-shrink-0">
             <SearchButton onClick={toggleResults} />
           </div>
-          <LoginRegisterDialog isOpen={isDialogOpen} onClose={closeDialog} />
+          <LoginRegisterDialog setName={setName} isOpen={isDialogOpen} onClose={closeDialog} />
         </div>
       </div>
       <div className="mt-4 flex-shrink-0">
-        <SearchResults isVisible={showResults} />
+        <SearchResults 
+          isVisible={showResults} 
+          flightData={flightData} 
+          isLoading={isLoading} 
+          error={error}
+        />
       </div>
     </div>
   );

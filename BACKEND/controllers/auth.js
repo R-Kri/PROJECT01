@@ -40,11 +40,12 @@ export const login = async (req, res, next) => {
 
         const token = jwt.sign({ _id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1d' });
 
-        const {password, isAdmin, ...otherDetails} = user._doc;
-        res.cookie("access_token", token,{
+        const { password, isAdmin, ...otherDetails } = user._doc;
+        res.cookie("access_token", token, {
             httpOnly: true,
-            sameSite: true,
-        }).status(200).json({ message: 'Login successful', ...otherDetails});
+            secure: false, // Ensure the cookie is sent over HTTPS in production
+            sameSite: 'Lax',
+        }).status(200).json({ message: 'Login successful', ...otherDetails,user });
     } catch (error) {
         next(error);
     }

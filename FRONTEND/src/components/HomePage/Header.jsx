@@ -1,7 +1,7 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from "react";
+import PropTypes from "prop-types";
 
-const Header = ({ onLoginClick }) => {
+const Header = ({ onLoginClick, username }) => {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="py-2">
@@ -18,23 +18,31 @@ const Header = ({ onLoginClick }) => {
           </a>
 
           {/* Navigation Menu */}
-          <ul className="flex items-center ml-auto">
-            <li
-              className="bg-gradient-to-r from-blue-300 to-blue-800 px-3 sm:px-4 md:px-6 py-1 sm:py-2 rounded-lg text-center font-semibold cursor-pointer text-white text-xs sm:text-sm md:text-base"
-              onClick={onLoginClick}
-            >
-              <p>Login/Signup</p>
-            </li>
-          </ul>
+          <div className="ml-auto">
+            {username === "" ? (
+              <button
+                className="bg-gradient-to-r from-blue-300 to-blue-800 px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-lg text-center font-semibold cursor-pointer text-white text-xs sm:text-sm md:text-base"
+                onClick={onLoginClick}
+              >
+                Login/Signup
+              </button>
+            ) : (
+              <button
+                className="bg-gradient-to-r from-blue-300 to-blue-800 px-2 sm:px-4 md:px-6 py-1 sm:py-2 rounded-lg text-center font-semibold cursor-pointer text-white text-xs sm:text-sm md:text-base"
+              >
+                Hi, {username}
+              </button>
+            )}
+          </div>
         </header>
       </div>
     </div>
-  )
-}
+  );
+};
 
 Header.propTypes = {
   onLoginClick: PropTypes.func.isRequired,
-}
+  username: PropTypes.string.isRequired, 
+};
 
-export default Header
-
+export default Header;
