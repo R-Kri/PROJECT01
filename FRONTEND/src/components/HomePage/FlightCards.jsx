@@ -7,7 +7,7 @@ import img3 from "../../assets/logos/spicejet.png";
 
 // Mapping of airline names to their logo URLs
 const airlineLogos = {
-  IndiGo:img1,
+  IndiGo: img1,
   Vistara: img2,
   SpiceJet: img3,
   // Add more airline logos here
@@ -17,7 +17,7 @@ export function FlightCard({ flight }) {
   console.log(flight.airline);
   console.log(airlineLogos[flight.airline]);
   return (
-    <div className="rounded-lg border bg-white p-4 shadow-sm">
+    <div className="rounded-lg border bg-white p-4 shadow-xl px-12">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="cover p-1">
@@ -59,6 +59,7 @@ export function FlightCard({ flight }) {
         <span className="text-xl font-bold">₹{flight.price.toLocaleString()}</span>
         <span className="text-sm text-muted-foreground">per adult</span>
       </div>
+      
     </div>
   );
 }

@@ -57,9 +57,11 @@ const TourCard = ({
           <div className="pt-4 border-t">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-gray-500">
-                  Includes extra ₹{discount.amount} discount for packages with flights
-                </p>
+                {discount && discount.amount && (
+                  <p className="text-sm text-gray-500">
+                    Includes extra ₹{discount.amount} discount for packages with flights
+                  </p>
+                )}
               </div>
               <div className="text-right">
                 <div className="text-2xl font-bold">₹{price.toLocaleString()}</div>
@@ -72,15 +74,17 @@ const TourCard = ({
           </div>
 
           {/* Extra Discount */}
-          <div className="flex items-center gap-2 pt-2">
-            <span className="w-4 h-4 bg-blue-600 text-white flex items-center justify-center rounded-full text-xs">
-              💡
-            </span>
-            <span className="text-sm">
-              Extra ₹{extraDiscount.amount} off. Use Code{' '}
-              <span className="font-semibold">{extraDiscount.code}</span>
-            </span>
-          </div>
+          {extraDiscount && extraDiscount.amount && (
+            <div className="flex items-center gap-2 pt-2">
+              <span className="w-4 h-4 bg-blue-600 text-white flex items-center justify-center rounded-full text-xs">
+                💡
+              </span>
+              <span className="text-sm">
+                Extra ₹{extraDiscount.amount} off. Use Code{' '}
+                <span className="font-semibold">{extraDiscount.code}</span>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -96,17 +100,19 @@ TourCard.propTypes = {
   price: PropTypes.number.isRequired,
   totalPrice: PropTypes.number.isRequired,
   discount: PropTypes.shape({
-    amount: PropTypes.number.isRequired,
-    code: PropTypes.string.isRequired,
-  }).isRequired,
+    amount: PropTypes.number,
+    code: PropTypes.string,
+  }),
   extraDiscount: PropTypes.shape({
-    amount: PropTypes.number.isRequired,
-    code: PropTypes.string.isRequired,
-  }).isRequired,
+    amount: PropTypes.number,
+    code: PropTypes.string,
+  }),
   isDealOfTheDay: PropTypes.bool,
 };
 
 TourCard.defaultProps = {
+  discount: null,
+  extraDiscount: null,
   isDealOfTheDay: false,
 };
 
