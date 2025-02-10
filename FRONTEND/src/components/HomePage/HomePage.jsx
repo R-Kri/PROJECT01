@@ -6,6 +6,7 @@ import Header from './Header';
 import LoginRegisterDialog from '../Login/LoginRegisterDialog';
 import { SearchResults } from "./SearchResults";
 import axios from 'axios';
+import Footer from './Footer';
 
 const HomePage = ()=> {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -45,7 +46,7 @@ const HomePage = ()=> {
           <LoginRegisterDialog setName={setName} isOpen={isDialogOpen} onClose={closeDialog} />
         </div>
       </div>
-      <div className="mt-4 flex-shrink-0">
+      <div className="mt-4 mb-8 flex-shrink-0">
         <SearchResults 
           isVisible={showResults} 
           flightData={flightData} 
@@ -53,6 +54,7 @@ const HomePage = ()=> {
           error={error}
         />
       </div>
+      <Footer />
     </div>
   );
   

@@ -5,6 +5,7 @@ import HotelContainer from './HotelContainer';
 import SearchButton from '../HomePage/SearchButton';
 import HotelSearchResults from './SearchResults';
 import LoginRegisterDialog from '../Login/LoginRegisterDialog';
+import Footer from '../HomePage/Footer';
 
 function HotelPage() {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -33,10 +34,11 @@ function HotelPage() {
 
             {/* Only show HotelSearchResults if showResults is true */}
             {showResults && (
-                <div className="container mx-auto py-3 px-5 w-full sm:w-4/5 md:w-3/4 lg:w-2/3">
+                <div className="container mx-auto py-6 px-5 w-full sm:w-4/5 md:w-3/4 lg:w-2/3">
                     <HotelSearchResults isVisible={showResults} />
                 </div>
             )}
+            <Footer />
         </>
     );
 }

@@ -10,6 +10,7 @@ import HotelManagement from "./components/Admin/HotelManagement";
 import PackageManagement from "./components/Admin/PackageManagement";
 import "./App.css"; // Ensure CSS file is imported
 import { SignedOut, SignInButton, SignUp } from "@clerk/clerk-react";
+import Footer from "./components/HomePage/Footer";
 
 const App = () => {
   return (
@@ -27,9 +28,8 @@ const App = () => {
             <Route path="packages" element={<PackageManagement />} />
           </Route>
           <Route path="*" element={<h1>Not Found</h1>} />
-          
-
         </Routes>
+
       </div>
       <div className="page-content">
         {/* This area will be white and will take up 30% of the screen */}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 const TourCard = ({
@@ -12,9 +12,12 @@ const TourCard = ({
   discount,
   extraDiscount,
   isDealOfTheDay,
+  onSelect,
+  isSelected
 }) => {
+
   return (
-    <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
+    <div  onClick={onSelect} className={`border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-transform duration-300 ${isSelected? "transition scale-95 border border-2xl border-blue-700":""} `}>
       {/* Image Section */}
       <div className="relative h-48">
         <img
@@ -108,6 +111,8 @@ TourCard.propTypes = {
     code: PropTypes.string,
   }),
   isDealOfTheDay: PropTypes.bool,
+  isSelected: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
 TourCard.defaultProps = {

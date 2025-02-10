@@ -2,10 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Star, PocketIcon as Pool } from "lucide-react";
 
-const HotelCard = ({ hotel }) => {
+const HotelCard = ({ hotel, onSelect, isSelected }) => {
   return (
-    <div className="flex justify-center p-4">
-      <div className="rounded-lg border bg-white shadow-lg w-full max-w-2xl p-4">
+    <div className="flex justify-center">
+      <div onClick={onSelect} className={` rounded-lg border bg-white shadow-lg w-full max-w-2xl flex justify-center p-4 transition-transform duration-300 ${isSelected?
+        "transition scale-95 border border-2xl border-blue-700":
+        ""}`}
+      >
         <div className="flex gap-4">
           {/* Hotel Image Section */}
           <div className="relative h-48 w-64 flex-shrink-0">
@@ -115,6 +118,8 @@ HotelCard.propTypes = {
     description: PropTypes.string.isRequired,
     taxesAndFees: PropTypes.number.isRequired,
   }).isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default HotelCard;

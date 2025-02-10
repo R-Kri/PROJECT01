@@ -13,18 +13,15 @@ const airlineLogos = {
   // Add more airline logos here
 };
 
-export function FlightCard({ flight }) {
-  console.log(flight.airline);
-  console.log(airlineLogos[flight.airline]);
+export function FlightCard({ flight, isSelected, onSelect }) {
   return (
-    <div className="rounded-lg border bg-white p-4 shadow-xl px-12">
+    <div onClick={onSelect} className={`rounded-lg border bg-white p-4 shadow-xl px-12 transition-transform duration-300 ${isSelected ? 
+    " border border-2xl border-blue-700 px-12 transform scale-95" : ""}`}>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="cover p-1">
             <img
-              src={
-                airlineLogos[flight.airline] || "../../assets/logos/indigo-vector-logo-2022.png"
-              }
+              src={airlineLogos[flight.airline] || "../../assets/logos/indigo-vector-logo-2022.png"}
               alt={flight.airline}
               className="cover rounded-full h-8 w-8 object-contain"
             />
@@ -59,7 +56,6 @@ export function FlightCard({ flight }) {
         <span className="text-xl font-bold">₹{flight.price.toLocaleString()}</span>
         <span className="text-sm text-muted-foreground">per adult</span>
       </div>
-      
     </div>
   );
 }
@@ -77,4 +73,6 @@ FlightCard.propTypes = {
     destination: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };

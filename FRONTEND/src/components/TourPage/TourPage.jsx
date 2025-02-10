@@ -7,6 +7,8 @@ import SearchButton from "../HomePage/SearchButton";
 import TourCard from "./TourCard";
 import { tours } from "../data/tours";
 import LoginRegisterDialog from "../Login/LoginRegisterDialog";
+import Footer from "../HomePage/Footer";
+// import { set } from "react-datepicker/dist/date_utils";
 
 function TourPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -14,6 +16,11 @@ function TourPage() {
   const closeDialog = () => setIsDialogOpen(false);
   const [showResults, setShowResults] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+
+  const handleSelectedCard = (index) => {
+    setSelectedCardIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
 
   const handleSearch = async () => {
     setLoading(true);
@@ -37,11 +44,16 @@ function TourPage() {
           <h2 className="text-2xl font-semibold mb-6">Available Tour Packages</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tours.map((tour, index) => (
-              <TourCard key={index} {...tour} />
+              <TourCard key={index} 
+              isSelected={selectedCardIndex===index}
+              onSelect={()=>handleSelectedCard(index)}
+              {...tour}
+              />
             ))}
           </div>
         </div>
       )}
+      <Footer/>
     </div>
   );
 }
