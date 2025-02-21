@@ -1,4 +1,6 @@
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube, FaApple, FaGooglePlay } from "react-icons/fa"
+import HotelPage from "../HotelPage/HotelPage"
+import { Link} from "react-router-dom"
 
 const Footer = () => {
     return (
@@ -64,19 +66,13 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4">Products</h3>
                         <ul className="space-y-2">
                             <li>
-                                <a href="#" className="hover:text-gray-300">
-                                    Flights
-                                </a>
+                            <Link to="/" className="hover:text-gray-300">Flight</Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-gray-300">
-                                    Hotels
-                                </a>
+                            <Link to="/hotel" className="hover:text-gray-300">Hotel</Link>
                             </li>
                             <li>
-                                <a href="#" className="hover:text-gray-300">
-                                    Holiday Packages
-                                </a>
+                            <Link to="/tour" className="hover:text-gray-300">Holiday Packages</Link>
                             </li>
                         </ul>
                     </div>

@@ -27,7 +27,7 @@ html, body {
   background-image: url('./assets/images/beach.jpg');
   background-position: center center;
   background-size: cover;
-  height: 75vh; 
+  height: 70vh; 
   background-attachment: fixed;
 }
 

@@ -12,8 +12,9 @@ export default defineConfig({
     },
   },
   server: {
+    host:true,
     allowedHosts: [
-      'lovely-sharing-nutten-trail.trycloudflare.com', // Add your Cloudflare tunnel URL here
+      '.trycloudflare.com', // Add your Cloudflare tunnel URL here
     ],
   },
 });

@@ -15,7 +15,7 @@ const Navbar = () => (
               className="mb-1"
             />
           </span>
-          <span className="text-gray-800">Flights</span>
+          <span className="text-gray-800 text-xs sm:text-sm">Flights</span>
         </span>
       </Link>
       <Link to="/hotel">
@@ -26,7 +26,7 @@ const Navbar = () => (
               className="mb-1"
             />
           </span>
-          <span className="text-gray-800">Hotels</span>
+          <span className="text-gray-800 text-xs sm:text-sm">Hotels</span>
         </span>
       </Link>
       <Link to="/tour">
@@ -37,7 +37,7 @@ const Navbar = () => (
               className="mb-1"
             />
           </span>
-          <span className="text-gray-800 ">Tour Packages</span>
+          <span className="text-gray-800 text-xs sm:text-sm">Tour Packages</span>
         </span>
       </Link>
     </nav>
